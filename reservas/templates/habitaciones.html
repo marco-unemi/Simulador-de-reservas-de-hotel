@@ -1,0 +1,162 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Luminar</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+    <!-- BARRA DE NAVEGACION -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top bg-black justify-content-between">
+        <a href="#" class="navbar-brand mx-5">
+            <h1 class="name-hotel">Luminar</h1>
+        </a>
+        <!--boton collapse-->
+        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#contenido-nav"
+            aria-controls="contenido-nav" aria-expanded="false">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!--nav content-->
+        <div class="collapse navbar-collapse flex-grow-0 mx-5" id="contenido-nav">
+            <ul class="navbar-nav">
+                <!-- RESERVA -->
+                <li class="nav-item">
+                    <a class="nav-link" href="/reserva">Reserva</a>
+                </li>
+                <!-- PUNTO DE VENTA -->
+                <li class="nav-item">
+                    <a class="nav-link" href="/punto_venta">Punto de venta</a>
+                </li>
+                <!-- FACTURAS -->
+                <li class="nav-item">
+                    <a class="nav-link" href="/facturas">Facturas</a>
+                </li>
+                <!-- USUARIOS -->
+                <li class="nav-item">
+                    <a class="nav-link" href="/usuarios">Usuarios</a>
+                </li>
+                <!-- CONFIGURACION DEL HOTEL -->
+                <li class="nav-item dropdown seccion-configuracio">
+                    <a class="nav-link link-primary fw-bolder dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Configuracion del Hotel
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark bg-black">
+                        <li><a class="dropdown-item" href="/informacion_hotel">Informacion Hotel</a></li>
+                        <li><a class="dropdown-item active fw-bolder" href="/habitaciones">Habitaciones</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="collapse navbar-collapse flex-grow-0 mx-5" id="contenido-nav">
+            <ul class="navbar-nav">
+                <!-- INFORMACION DEL PERFIL -->
+                <li class="nav-item dropdown">
+                    <div class="btn-group">
+                        <a href="#" class="nav-link dropdown fs-3" id="btn-dropdown-informacion" data-bs-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="true">
+                            <i class="bi bi-person-circle"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark bg-black"
+                            aria-labelledby="btn-dropdown-informacion" style="width: auto;">
+                            <li><a href="/perfil" class="dropdown-item" id="">Perfil</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li class="text-center">
+                                <a href="{% url 'cerrar_sesion' %}" class="btn btn-outline-danger " id="id-btn-cerrar-sesion">
+                                    <i class="bi bi-backspace"></i>
+                                    Cerrar sesion
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col my-3">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane"
+                            type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Agregar habitación</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane"
+                            type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Editar habitación</button>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+                        <div class="row">
+                            <div class="col d-flex justify-content-center">
+                                <div class="card border-0 w-50 mt-5">
+                                    <div class="card-header text-center bg-black">
+                                        <h2 class="text-info">Agregar Nueva Habitación</h2>
+                                    </div>
+                                    <div class="card-body bg-black text-white">
+                                        <form action="{% url 'habitaciones' %}" method="POST">
+                                            {% csrf_token %}
+                                            <label for="id_nombre" class="form-label fw-bolder">Nombre:</label>
+                                            <input type="text" class="form-control bg-black text-white" name="nombre" maxlength="100"
+                                                required="" id="id_nombre">
+                
+                                            <label for="id_numero" class="form-label fw-bolder">Numero:</label>
+                                            <input type="number" class="form-control bg-black text-white" name="numero" value="{{ siguiente_numero_de_habitacione }}"
+                                                readonly="" id="id_numero">
+                
+                                            <label for="id_precio" class="form-label fw-bolder">Precio:</label>
+                                            <input type="number" class="form-control bg-black text-white" name="precio" value="0"
+                                                step="any" required="" id="id_precio">
+                
+                                            <div class="mt-4 text-center">
+                                                <button type="submit" class="btn btn-outline-primary w-50">Save</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+                        <div class="row">
+                            {% for habitacion in habitaciones %}
+                            <div class="col mt-3">
+                                <div class="card text-center mb-3" style="width: 18rem;">
+                                    <div class="card-header">
+                                        <h5 class="card-title">{{ habitacion.nombre }}</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="card-text">NO. {{ habitacion.numero }}</p>
+                                        <p class="card-text">{{ habitacion.precio }} $</p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <a href="{% url 'editar_habitacion' habitacion.id %}" class="btn btn-danger">Editar</a>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

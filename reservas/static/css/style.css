@@ -1,0 +1,58 @@
+body {
+    background: linear-gradient(to right, rgb(223, 218, 213), antiquewhite 0%, #B89D80 100%);
+}
+
+.name-hotel {
+    color: #D4AF37;
+}
+
+#contenido-login {
+    padding-top: 10%;
+}
+
+.icon-password {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+
+.icon-user {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+}
+
+.logo {
+    transition: transform 0.3s ease-out;
+}
+
+.logo:hover {
+    animation: rotateLogo 2s linear infinite;
+}
+
+@keyframes rotateLogo {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    50% {
+        transform: rotate(30deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+.sesion {
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px black;
+}
+
+.card {
+    box-shadow: 0 0 15px 0 black;
+}

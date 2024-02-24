@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factura de {{ reserva_cliente.cliente }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: black;
+        }
+
+        .titulo-container {
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .header {
+            padding: 5px;
+        }
+
+        #invoice table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        #id-reserva, #id-pedidos, #id-info-hotel, #id-info-cliente{
+            text-align: center;
+        }
+
+        #id-reserva, #id-pedidos, #id-info-hotel, #id-info-cliente td{
+            padding: 5px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #333;
+            color: #fff;
+        }
+
+        #id-pagar td{
+            padding: 5px;
+            border-bottom: none;
+        }
+
+        #id-pagar th{
+            text-align: right;
+            background-color: #fff;
+            color: black;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <hr>
+    <div style="font-size: larger;">
+        <p><b>NO. factura:</b> {{ reserva_cliente.id }}</p>
+        <p><b>RUC:</b> 123456789</p>
+        <p><b>FECHA:</b> {{ fecha_actual }}</p>
+    </div>
+
+    <hr>
+    <br>
+
+    <div class="header">
+        {% for hotel in hotel %}
+        <ul class="titulo-container">
+            Datos del Hotel {{ hotel.nombre }}
+        </ul>
+        <table id="id-info-hotel" style="text-align: center;">
+            <thead>
+                <tr>
+                    <th>Nombre:</th>
+                    <th>Telefono:</th>
+                    <th>Correo:</th>
+                    <th>Ubicacion:</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ hotel.nombre }}</td>
+                    <td>{{ hotel.telefono }}</td>
+                    <td>{{ hotel.correo }}</td>
+                    <td>{{ hotel.ubicacion }}</td>
+                </tr>
+            </tbody>
+        </table>
+        {% endfor %}
+    </div>
+    <br>
+
+    <hr>
+    
+    <br>
+    <div class="header">
+        <ul class="titulo-container">
+            Datos del cliente
+        </ul>
+        <table id="id-info-cliente" style="text-align: center;">
+            <thead>
+                <tr>
+                    <th>Nombr:</th>
+                    <th>Cedula:</th>
+                    <th>Telefono:</th>
+                    <th>Email:</th>
+                    <th>Tipo_cliente:</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ reserva_cliente.cliente }}</td>
+                    <td>{{ reserva_cliente.cedula }}</td>
+                    <td>{{ reserva_cliente.telefono }}</td>
+                    <td>{{ reserva_cliente.email }}</td>
+                    <td>{{ reserva_cliente.tipo_cliente }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <br>
+
+    <hr>
+
+    <br>
+    <div id="invoice">
+        <table id="id-reserva">
+            <tbody>
+                <tr>
+                    <th style="background-color: #ddd; color: #000000;" colspan="6" align="center"><b>Reservas</b></th>
+                </tr>
+                <tr>
+                    <th>Habitacion</th>
+                    <th>Fecha de reserva</th>
+                    <th>Tiempo</th>
+                    <th>Precio</th>
+                    <th>Tipo de pago</th>
+                    <th>Total</th>
+                </tr>
+                <tr>
+                    <td>{{ reserva_cliente.habitacion }}</td>
+                    <td>{{ reserva_cliente.fecha_reserva }}</td>
+                    <td>{{ reserva_cliente.tiempo }} hrs</td>
+                    <td>$ {{ reserva_cliente.precio_habitacion }}</td>
+                    <td>{{ reserva_cliente.tipo_pago }}</td>
+                    <td>$ {{ reserva_cliente.total_pagar }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <table id="id-pedidos">
+            <tbody>
+                <tr>
+                    <th style="background-color: #ddd; color: #000000;" colspan="6" align="center"><b>Pedidos</b></th>
+                </tr>
+                <tr>
+                    <th>Description</th>
+                    <th>Cantidad</th>
+                    <th>Precio unitario</th>
+                    <th>Descuento</th>
+                    <th>Tipo de pago</th>
+                    <th>Total</th>
+                </tr>
+                {% for pedido in pedidos %}
+                    <tr>
+                        <td>{{ pedido.producto }}</td>
+                        <td>{{ pedido.cantidad }}</td>
+                        <td>$ {{ pedido.precio }}</td>
+                        <td>$ 0</td>
+                        <td>{{ pedido.tipo_pago }}</td>
+                        <td>$ {{ pedido.total_pagar }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <br>
+
+    <div>
+        <table id="id-pagar" >
+            <tbody>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th>Subtotal:</th>
+                    <td style="text-align: center;">$ {{ subtotal }}</td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th>Impuesto (5%):</th>
+                    <td style="text-align: center;">$ {{ impuesto }}</td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th>Total:</th>
+                    <td style="text-align: center;">$ {{ monto }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>
+

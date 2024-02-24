@@ -1,0 +1,209 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factura de {{ reserva_cliente.cliente }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="row">
+            <div class="col d-flex justify-content-center">
+                <div class="card mt-3 py-4">
+                    <div class="card-body">
+                        <!-- Cabecera de la factura -->
+                        <div class="row">
+                            <div class="col-sm-4 mb-3 px-4">
+                                <label for="" class="form-label fw-bold">NO. factura:</label>
+                                <input type="text" class="form-control border-0 border-bottom" readonly=""
+                                    value="{{ reserva_cliente.id }}">
+                            </div>
+                            <div class="col-sm-4 mb-3 px-4">
+                                <label for="" class="form-label fw-bold">RUC:</label>
+                                <input type="text" class="form-control border-0 border-bottom" readonly=""
+                                    value="123456789">
+                            </div>
+                            <div class="col-sm-4 mb-3 px-4">
+                                <label for="" class="form-label fw-bold">Fecha:</label>
+                                <input type="text" class="form-control border-0 border-bottom" readonly=""
+                                    value="{{ fecha_actual }}">
+                            </div>
+                        </div>
+
+                        <hr>
+                        <!-- Información del hotel -->
+                        <div class="row">
+                            {% for hotel in hotel %}
+                            <div class="col-12">
+                                <h3 class="text-center">Datos del Hotel {{ hotel.nombre }}</h3>
+                            </div>
+
+                            <div class="col-sm-3 mb-3 px-4">
+                                <label for="" class="form-label fw-bold">Nombre:</label>
+                                <input type="text" class="form-control border-0 border-bottom" readonly=""
+                                    value="{{ hotel.nombre }}">
+                            </div>
+                            <div class="col-sm-3 mb-3 px-4">
+                                <label for="" class="form-label fw-bold">Telefono:</label>
+                                <input type="text" class="form-control border-0 border-bottom" readonly=""
+                                    value="{{ hotel.telefono }}">
+                            </div>
+                            <div class="col-sm-3 mb-3 px-4">
+                                <label for="" class="form-label fw-bold">Correo:</label>
+                                <input type="text" class="form-control border-0 border-bottom" readonly=""
+                                    value="{{ hotel.correo }}">
+                            </div>
+                            <div class="col-sm-3 mb-3 px-4">
+                                <label for="" class="form-label fw-bold">Ubicacion:</label>
+                                <input type="text" class="form-control border-0 border-bottom" readonly=""
+                                    value="{{ hotel.ubicacion }}">
+                            </div>
+                            {% endfor %}
+                        </div>
+
+                        <hr>
+                        <!-- Información del cliente -->
+                        <div class="row">
+                            <div class="col-12">
+                                <h3 class="text-center">Datos del cliente</h3>
+                            </div>
+
+                            <div class="col-sm-4 mb-3 px-4">
+                                <label for="" class="form-label fw-bold">Nombre:</label>
+                                <input type="text" class="form-control border-0 border-bottom" readonly=""
+                                    value="{{ reserva_cliente.cliente }}">
+                            </div>
+                            <div class="col-sm-4 mb-3 px-4">
+                                <label for="" class="form-label fw-bold">Cedula:</label>
+                                <input type="text" class="form-control border-0 border-bottom" readonly=""
+                                    value="{{ reserva_cliente.cedula }}">
+                            </div>
+                            <div class="col-sm-4 mb-3 px-4">
+                                <label for="" class="form-label fw-bold">Telefono:</label>
+                                <input type="text" class="form-control border-0 border-bottom" readonly=""
+                                    value="{{ reserva_cliente.telefono }}">
+                            </div>
+                            <div class="col-sm-4 mb-3 px-4">
+                                <label for="" class="form-label fw-bold">Email:</label>
+                                <input type="text" class="form-control border-0 border-bottom" readonly=""
+                                    value="{{ reserva_cliente.email }}">
+                            </div>
+                            <div class="col-sm-3 mb-3 px-4">
+                                <label for="" class="form-label fw-bold">Tipo de cliente:</label>
+                                <input type="text" class="form-control border-0 border-bottom" readonly=""
+                                    value="{{ reserva_cliente.tipo_cliente }}">
+                            </div>
+                        </div>
+
+                        <hr>
+                        <!-- Datos de la reserva -->
+                        <div class="row">
+                            <div class="col">
+
+                                <table class="table">
+                                    <thead class="text-center">
+                                        <tr>
+                                            <th class="bg-secondary" colspan="6"><b>Reservas</b></th>
+                                        </tr>
+                                        <tr>
+                                            <th style="background-color: #ddd; color: #000000;">Habitacion</th>
+                                            <th style="background-color: #ddd; color: #000000;">Fecha de reserva</th>
+                                            <th style="background-color: #ddd; color: #000000;">Tiempo</th>
+                                            <th style="background-color: #ddd; color: #000000;">Precio</th>
+                                            <th style="background-color: #ddd; color: #000000;">Tipo de pago</th>
+                                            <th style="background-color: #ddd; color: #000000;">Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-center">
+                                        <tr>
+                                            <td>{{ reserva_cliente.habitacion }}</td>
+                                            <td>{{ reserva_cliente.fecha_reserva }}</td>
+                                            <td>{{ reserva_cliente.tiempo }} hrs</td>
+                                            <td>$ {{ reserva_cliente.precio_habitacion }}</td>
+                                            <td>{{ reserva_cliente.tipo_pago }}</td>
+                                            <td>$ {{ reserva_cliente.total_pagar }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+
+                        <hr>
+                        <!-- Datos de la los pedidos -->
+                        <div class="row">
+                            <div class="col">
+                                <table class="table table-striped">
+                                    <thead class="text-center">
+                                        <tr>
+                                            <th class="bg-secondary" colspan="6"><b>Pedidos</b></th>
+                                        </tr>
+                                        <tr>
+                                            <th style="background-color: #ddd; color: #000000;">Description</th>
+                                            <th style="background-color: #ddd; color: #000000;">Cantidad</th>
+                                            <th style="background-color: #ddd; color: #000000;">Precio unitario</th>
+                                            <th style="background-color: #ddd; color: #000000;">Descuento</th>
+                                            <th style="background-color: #ddd; color: #000000;">Tipo de pago</th>
+                                            <th style="background-color: #ddd; color: #000000;">Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-center">
+                                        {% for pedido in pedidos %}
+                                        <tr>
+                                            <td>{{ pedido.producto }}</td>
+                                            <td>{{ pedido.cantidad }}</td>
+                                            <td>$ {{ pedido.precio }}</td>
+                                            <td>$ 0</td>
+                                            <td>{{ pedido.tipo_pago }}</td>
+                                            <td>$ {{ pedido.total_pagar }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Datos de la reserva -->
+                        <div class="row">
+                            <div class="col-8"></div>
+                            <div class="col text-center">
+                                <table class="table border-none">
+                                    <tbody>
+                                        <tr>
+                                            <th>Subtotal:</th>
+                                            <td>$ {{ subtotal }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Impuesto (5%):</th>
+                                            <td>$ {{ impuesto }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Total:</th>
+                                            <td>$ {{ monto }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+        </script>
+</body>
+
+</html>

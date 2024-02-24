@@ -1,0 +1,172 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrarse Hotel Luminar</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                {{ error_message }}
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col pt-5 mt-5">
+                <form action="/agregar_usuarios/" method="POST">
+                    {% csrf_token %}
+                    <!-- card 1 -->
+                    <div class="card bg-black text-white text-center card border-0 w-50 mx-auto my-auto" id="card_1" style="display: block;">
+                        <div class="card-header text-info">
+                            <h4>Añadir usuario</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-2">
+                                <div class="col-6 mb-3">
+                                    <label for="id_cedula" class="form-label fw-bold">Cedula:</label>
+                                    <input type="text" class="form-control bg-dark text-white bg-dark text-white" name="cedula" maxlength="10" required="" id="id_cedula">
+                                </div>
+                                <div class="col-6"></div>
+    
+                                <div class="col-6 mb-3">
+                                    <label for="id_first_name" class="form-label fw-bold">First name:</label>
+                                    <input type="text" class="form-control bg-dark text-white" name="first_name" maxlength="50" required="" id="id_first_name">
+                                </div>
+    
+                                <div class="col-6 mb-3">
+                                    <label for="id_last_name" class="form-label fw-bold">Last name:</label>
+                                    <input type="text" class="form-control bg-dark text-white" name="last_name" maxlength="50" required="" id="id_last_name">
+                                </div>
+    
+                                <div class="col-6 mb-3">
+                                    <label for="id_fecha_de_nacimiento" class="form-label fw-bold">Fecha de Nacimiento:</label>
+                                    <input type="date" class="form-control bg-dark text-white" name="fecha_de_nacimiento" required="" id="id_fecha_de_nacimiento">
+                                </div>
+                                <div class="col-6 mb-3">
+                                    <label for="id_genero" class="form-label fw-bold">Genero:</label>
+                                    <select name="genero" class="form-select bg-dark text-white" required id="id_genero">
+                                        <option value="" selected>-----</option>
+                                        <option value="FEMENINO">FEMENINO</option>
+                                        <option value="MASCULINO">MASCULINO</option>
+                                    </select>
+                                </div>
+    
+                                <div class="col-12 mt-4">
+                                    <div class="text-body-secondary d-flex justify-content-between">
+                                        <a href="/usuarios" class="btn btn-outline-danger">Regresar</a>
+                                        <button class="btn btn-primary" id="id_button_1">Continuar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- card 2 -->
+                    <div class="card bg-black text-white text-center card border-0 w-50 mx-auto my-3" id="card_2" style="display: none;">
+                        <div class="card-header text-info">
+                            <h4>Añadir usuario</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-2">
+                                <div class="col-6 mb-3">
+                                    <label for="id_email" class="form-label fw-bold">Email:</label>
+                                    <div class="input-group">
+                                        <input type="email" class="form-control bg-dark text-white" name="email" maxlength="254"
+                                            required="" id="id_email">
+                                        <span class="input-group-text fw-bold"><i
+                                                class="bi bi-envelope-at-fill"></i></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-6 mb-3">
+                                    <label for="id_username" class="form-label fw-bold">Username:</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control bg-dark text-white" name="username" required=""
+                                            id="id_username">
+                                        <span class="input-group-text fw-bold"><i class="bi bi-person-fill"></i></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-6 mb-3">
+                                    <label for="id_password1" class="form-label fw-bold">Password:</label>   
+                                    <div class="input-group">
+                                        <input type="password" class="form-control bg-dark text-white" name="password1" required id="id_password1">
+                                        <span class="input-group-text fw-bold"><i class="bi bi-eye-fill" id="id_icon_password1"></i></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-6 mb-3">
+                                    <label for="id_password2" class="form-label fw-bold">Password confirmation:</label>
+                                    <div class="input-group">
+                                        <input type="password" class="form-control bg-dark text-white" name="password2" required=""
+                                            id="id_password2">
+                                        <span class="input-group-text fw-bold"><i class="bi bi-eye-fill"
+                                                id="id_icon_password2"></i></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 mt-4">
+                                    <div class="text-body-secondary d-flex justify-content-between">
+                                        <button class="btn btn-danger" id="id_cancelar_2">Atras</button>
+                                        <button class="btn btn-primary" id="id_button_2">Continuar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- card 3 -->
+                    <div class="card bg-black text-white text-center card border-0 w-25 mx-auto my-auto" id="card_3" style="display: none;">
+                        <div class="card-header bg-black text-info">
+                            <h4>Añadir usuario</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-2">
+                                <div class="col-12 mb-3">
+                                    <label for="id_telefono" class="form-label fw-bold">Telefono:</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control bg-dark text-white" name="telefono" required="" id="id_telefono">
+                                        <span class="input-group-text fw-bold"><i class="bi bi-telephone-fill"></i></span>
+                                    </div>                                    
+                                </div>
+    
+                                <div class="col-12 mb-3">
+                                    <label for="id_cargo" class="form-label fw-bold">Cargo:</label>
+                                    <select name="cargo" class="form-select bg-dark text-white" required id="id_cargo">
+                                        <option value="" selected>-----</option>
+                                        <option value="GERENTE">GERENTE</option>
+                                        <option value="ADMINISTRADOR">ADMINISTRADOR</option>
+                                        <option value="EMPLEADO">EMPLEADO</option>
+                                    </select>
+                                </div>
+    
+                                <div class="text-body-secondary d-flex justify-content-between">
+                                    <button class="btn btn-danger" id="id_cancelar_3">Atras</button>
+                                    <button type="submit" class="btn btn-success" id="id_button_3">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+
+    <script type="module" src="{% static 'js/signup.js' %}"></script>
+</body>
+
+</html>
